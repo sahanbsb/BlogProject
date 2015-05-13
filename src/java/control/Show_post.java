@@ -41,6 +41,8 @@ public class Show_post extends HttpServlet {
             List<String> comments = Post_store.getpostcomments(id);
             List<String> UA_comments = Post_store.getpostUAcomments(id);
             
+            int hit_count = Post_store.getpost_hitcount(id);
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -49,6 +51,7 @@ public class Show_post extends HttpServlet {
             out.println("<body>");
             out.println("<h1><u>"+title+"</u></h1>");
             out.println("<p>"+content+"</p>");
+            out.println("<br>This post viewed "+hit_count+" times.");
             out.println("<h2><u>Comments</u></h2>");
             
             for(String i : comments){

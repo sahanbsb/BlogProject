@@ -7,7 +7,6 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,7 @@ import model.Post_store;
  *
  * @author Sahan
  */
-public class Show_post_guest extends HttpServlet {
+public class increase_hit extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,35 +35,21 @@ public class Show_post_guest extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             int id = Integer.parseInt(request.getParameter("id"));
-            String title = Post_store.getposttitle(id);
-            String content = Post_store.getpostcontent(id);
-            List<String> comments = Post_store.getpostcomments(id);
-            int hit_count = Post_store.getpost_hitcount(id);
+            int u = Integer.parseInt(request.getParameter("u"));
+            Post_store.inc_hit_count(id);
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>"+title+"</title>");            
+            out.println("<title>Servlet increase_hit</title>");
+            if(u==1){
+                out.println("<meta http-equiv=\"refresh\" content=\"0; url=/BlogProject/User/show_post?id="+id+"\" />");
+            }else{
+                out.println("<meta http-equiv=\"refresh\" content=\"0; url=/BlogProject/show_post_guest?id="+id+"\" />");
+            }
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1><u>"+title+"</u></h1>");
-            out.println("<p>"+content+"</p>");
-            out.println("<br>This post viewed "+hit_count+" times.");
-            out.println("<h2><u>Comments</u></h2>");
-            
-            for(String i : comments){
-                out.println(i+"<br>");
-            }
-            
-            out.println("<br><form action=\"/BlogProject/Add_comment_guest\">");
-            out.println("Enter your comment:<br>");
-            out.println("<input type=\"text\" name=\"comment\" value=\"\"><br>");
-            out.println("<input type=\"hidden\" name=\"id\" value=\""+id+"\">");
-            out.println("<input type=\"submit\" value=\"Comment\">");
-            out.println("</form>");
-            
-            //out.println("<br><br><a href=\"/BlogProject/User/Edit_post?id="+id+"\">Edit Post</a>");
-            out.println("<br><br><a href=\"/BlogProject/index.html\">Home</a>");
+            out.println("<h1>Servlet increase_hit at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

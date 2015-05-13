@@ -48,6 +48,10 @@ public class Post_store {
         
         obj.put("UA_comments", UA_comments);
         
+        int hit_count = 0;
+        
+        obj.put("hit_count", hit_count);
+        
         int lastid = getlastid();
 
         obj.put("id", lastid);
@@ -257,20 +261,17 @@ public class Post_store {
     
     public static void update_post(String title, String content, List<String> comments, List<String> UA_comments, int id){
         JSONObject obj = new JSONObject();
+        
+        int hit_count = getpost_hitcount(id);
+        
 	obj.put("title", title);
 	obj.put("content", content);
         
-        JSONArray Jcomments = new JSONArray();
-        for(String i : comments){
-            Jcomments.add(i);
-        }
         obj.put("comments", comments);
         
-        JSONArray JUA_comments = new JSONArray();
-        for(String i : UA_comments){
-            JUA_comments.add(i);
-        }
         obj.put("UA_comments", UA_comments);
+        
+        obj.put("hit_count", hit_count);
         
         try(FileWriter file = new FileWriter(root+"posts/"+id+".json");) {
             file.write(obj.toJSONString());
@@ -295,4 +296,60 @@ public class Post_store {
             System.out.println(i);
         }
     }
+    
+    public static void inc_hit_count(int id){
+        String title = getposttitle(id);
+        String content = getpostcontent(id);
+        List<String> comments = getpostcomments(id);
+        List<String> UA_comments = getpostUAcomments(id);
+        int hit_count = getpost_hitcount(id);
+        
+        hit_count++;
+        
+        JSONObject obj = new JSONObject();
+	obj.put("title", title);
+	obj.put("content", content);
+        
+        obj.put("comments", comments);
+        
+        obj.put("UA_comments", UA_comments);
+        
+        obj.put("hit_count", Integer.toString(hit_count));
+        
+        try(FileWriter file = new FileWriter(root+"posts/"+id+".json");) {
+            file.write(obj.toJSONString());
+            file.flush();
+            file.close();
+ 
+	} catch (IOException e) {
+            System.out.println(e);
+	}
+ 
+    }
+    
+    public static int getpost_hitcount(int id) {
+ 
+	JSONParser parser = new JSONParser();
+        int hit_count = 0;
+ 
+	try {
+ 
+            Object obj = parser.parse(new FileReader(root+"posts/"+id+".json"));
+
+            JSONObject jsonObject = (JSONObject) obj;
+
+            hit_count = Integer.parseInt(jsonObject.get("hit_count").toString());
+            //System.out.println(title);
+ 
+	} catch (FileNotFoundException e) {
+            System.out.println(e);
+	} catch (IOException e) {
+            System.out.println(e);
+	} catch (ParseException e) {
+            System.out.println(e);
+	}
+        
+        return hit_count;
+ 
+     }
 }

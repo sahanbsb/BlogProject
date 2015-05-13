@@ -24,6 +24,10 @@
         <servlet-name>Add_comment_guest</servlet-name>
         <servlet-class>control.Add_comment_guest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>increase_hit</servlet-name>
+        <servlet-class>control.increase_hit</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>New_post</servlet-name>
         <url-pattern>/new_post</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>Add_comment_guest</servlet-name>
         <url-pattern>/Add_comment_guest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>increase_hit</servlet-name>
+        <url-pattern>/IH</url-pattern>
     </servlet-mapping>
     <security-constraint>
         <web-resource-collection>
