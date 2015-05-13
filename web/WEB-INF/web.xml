@@ -28,6 +28,10 @@
         <servlet-name>increase_hit</servlet-name>
         <servlet-class>control.increase_hit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>stats</servlet-name>
+        <servlet-class>view.stats</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>New_post</servlet-name>
         <url-pattern>/new_post</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>increase_hit</servlet-name>
         <url-pattern>/IH</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>stats</servlet-name>
+        <url-pattern>/stats</url-pattern>
     </servlet-mapping>
     <security-constraint>
         <web-resource-collection>

@@ -51,7 +51,7 @@ public class Show_post extends HttpServlet {
             out.println("<body>");
             out.println("<h1><u>"+title+"</u></h1>");
             out.println("<p>"+content+"</p>");
-            out.println("<br>This post viewed "+hit_count+" times.");
+            out.println("<br><font color=red>This post viewed "+hit_count+" times.</font>");
             out.println("<h2><u>Comments</u></h2>");
             
             for(String i : comments){
